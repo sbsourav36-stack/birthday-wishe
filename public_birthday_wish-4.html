@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Wish 🎂</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(135deg,#fff1f7,#f5e8ff);color:#30152b}
+.card{max-width:520px;margin:30px auto;padding:24px;background:#fff;border-radius:24px;box-shadow:0 10px 35px #0002}
+h1{text-align:center;margin:5px 0 8px;font-size:30px}.sub{text-align:center;color:#76566c;margin-bottom:22px}
+label{display:block;font-weight:700;margin:14px 0 7px}input,textarea,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;font-size:16px;background:#fff}
+button{width:100%;border:0;border-radius:14px;padding:14px;margin-top:18px;font-size:17px;font-weight:800;background:#e83e8c;color:#fff;cursor:pointer}
+.preview{margin-top:22px;text-align:center}.preview img{max-width:100%;border-radius:18px;display:none}
+.note{font-size:13px;color:#7d6876;text-align:center;margin-top:12px}
+.pay{background:#fff7fb;border:1px dashed #e83e8c;padding:14px;border-radius:14px;margin-top:18px}
+.pay b{display:block;margin-bottom:5px}
+#result{display:none;margin-top:20px;padding:15px;border-radius:14px;background:#f3fff7}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>🎂 Birthday Wish তৈরি করুন</h1>
+<div class="sub">আপনার নাম, ছবি ও মেসেজ দিন — নিজের Birthday Wish বানিয়ে নিন 💖</div>
+
+<label>আপনার নাম</label>
+<input id="name" placeholder="যেমন: Sourav">
+
+<label>যার Birthday</label>
+<input id="birthday" placeholder="যেমন: Shree">
+
+<label>Your Birthday Message</label>
+<textarea id="message" rows="4" placeholder="শুভ জন্মদিন! তোমার দিনটা অনেক সুন্দর হোক..."></textarea>
+
+<label>ছবি যোগ করুন</label>
+<input id="photo" type="file" accept="image/*">
+
+<div class="preview"><img id="preview"></div>
+
+<div class="pay">
+<b>💝 Premium Wish</b>
+পেমেন্টের জন্য UPI: <strong>7430897636-2@ybl</strong>
+<div class="note">পেমেন্ট করার আগে মূল্য ও শর্ত আপনার নিজের Instagram পোস্ট/DM-এ জানিয়ে দিন।</div>
+</div>
+
+<button onclick="makeWish()">✨ Birthday Wish তৈরি করুন</button>
+<div id="result"></div>
+</div>
+
+<script>
+const photo=document.getElementById('photo');
+const preview=document.getElementById('preview');
+photo.addEventListener('change',()=>{
+  const f=photo.files[0];
+  if(!f)return;
+  preview.src=URL.createObjectURL(f);
+  preview.style.display='block';
+});
+function makeWish(){
+  const name=document.getElementById('name').value.trim();
+  const birthday=document.getElementById('birthday').value.trim();
+  const msg=document.getElementById('message').value.trim();
+  if(!name||!birthday||!msg){alert('দয়া করে সব তথ্য পূরণ করুন ❤️');return}
+  const r=document.getElementById('result');
+  r.style.display='block';
+  r.innerHTML=`<strong>🎉 আপনার Wish Ready!</strong><br><br>
+  <b>${escapeHtml(birthday)}</b>-কে ${escapeHtml(name)}-এর পক্ষ থেকে:<br>
+  ${escapeHtml(msg)}<br><br>
+  <small>ছবিটি উপরে দেখা যাচ্ছে।</small>`;
+}
+function escapeHtml(s){
+ return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+</script>
+</body>
+</html>
